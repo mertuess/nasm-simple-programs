@@ -1,5 +1,5 @@
 ; Register output program
-; Turikov D. E. 2025-11-22 16:36
+; mertuess 2025-11-22 16:36
 
 section .data
   hex_digits db '0123456789ABCDEF'  ; Symbol table for output
