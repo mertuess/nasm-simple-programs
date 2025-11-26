@@ -3,7 +3,6 @@
 
 section .data
   hex_digits db '0123456789ABCDEF'  ; Symbol table for output
-  newline db 10                     ; New line symbol (ASCII 10 = \n)
   prefix db 'Register value: 0x'    ; Prefix text for output
   prefix_len equ $ - prefix         ; Prefix lenght ($ - prefix: 17 symbols)
   buffer times 16 db 0              ; Output buffer (16 byte)
@@ -55,11 +54,11 @@ print_register:
   ; New line
   mov rax, 1            ; sys_write
   mov rdi, 1            ; stdout
-  mov rsi, newline      ; Pointer to newline
+  mov rsi, newline      ; New line poiner (In main file needed to add 'newline db 10' in data section!!!)
   mov rdx, 1            ; Lenght = 1 symbol
   syscall               ; System call
 
-  ; Restore registers values
+  ; Return registers values
   pop rsi
   pop rdx
   pop rcx
@@ -73,19 +72,3 @@ print_register:
   call print_register   ; Call print function
   add rsp, 8            ; Clear stack (delete argument)
 %endmacro
-
-_start:
-  mov rax, 0x0123456789ABCDEF0
-  print_reg rax
-
-  mov rbx, 0xB2EAD
-  print_reg rbx
-
-  mov rax, 0x123
-  print_reg rax
-
-  ; Exit
-  mov rax, 60
-  xor rdi, rdi
-  syscall
-
