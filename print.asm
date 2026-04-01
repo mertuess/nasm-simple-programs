@@ -56,10 +56,10 @@ println:
   syscall               ; System call
 
   ; Return values from stack
-  pop rax
-  pop rdi
-  pop rsi
   pop rdx
+  pop rsi
+  pop rdi
+  pop rax
 
   ret ; Return
 
